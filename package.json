@@ -1,0 +1,26 @@
+{
+  "name": "safejourney",
+  "version": "1.0.0",
+  "description": "Get instant alerts about unsafe areas and access emergency SOS features with one-tap activation.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KolarDev/SafeJourney.git"
+  },
+  "keywords": [
+    "safejourned",
+    "backend"
+  ],
+  "author": "kolardev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KolarDev/SafeJourney/issues"
+  },
+  "homepage": "https://github.com/KolarDev/SafeJourney#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
