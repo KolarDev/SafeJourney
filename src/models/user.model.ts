@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 
 // Define the interface for a User document
 export interface IUser extends Document {
+    createdAt: any;
     fullname: string;
     phonenumber: string;
     email: string;

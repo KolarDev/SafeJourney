@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { User, IUser } from '../models/User';
+import { User, IUser } from '../models/user.model';
 
 // Removed the local AuthenticatedRequest interface.
 // The Request interface is now extended globally via src/types/express.d.ts

@@ -33,7 +33,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use('/api/v1/auth', authRoutes);
 
 // Core Application Routes (Protected routes go here)
-app.use('/api/v1/alerts', alertRoutes);
+// app.use('/api/v1/alerts', alertRoutes);
 
 // Handle 404
 app.all(/.*/, (req, res, next) => {

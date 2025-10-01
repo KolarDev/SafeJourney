@@ -4,15 +4,12 @@ import connectDB from './database/mongodb';
 
 // Load environment variables from .env file
 dotenv.config();
-
-// Express app
-import app from "./app";
-
+import { config } from "./config/envSchema";
 // Connect to the MongoDB database
 connectDB();
 
 // Start server
-const port = config.PORT || 5052;
+const PORT = config.PORT || 5052;
 // Start the Express server
 const server = app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
@@ -41,7 +38,6 @@ process.on("uncaughtException", (err: Error) => {
 // Graceful shutdown logic
 const gracefulShutdown = async (signal: string) => {
   console.log(`👋 ${signal} received. Closing server gracefully...`);
-  await prisma.$disconnect();
   server.close(() => {
     console.log("💥 Server closed.");
     process.exit(0);
