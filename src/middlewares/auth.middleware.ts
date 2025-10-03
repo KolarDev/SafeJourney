@@ -41,7 +41,7 @@ export const protect = async (req: Request, res: Response, next: NextFunction): 
 
             // Assigning 'user' property to the Request object, which is now possible globally.
             // req.user is now correctly typed as IUser | undefined globally.
-            req.user = user as any; 
+            req.user = user as IUser; 
             next();
 
         } catch (error) {

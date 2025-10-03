@@ -2,7 +2,7 @@
 // to extend the types of the 'express' module globally.
 
 // Import the necessary interface for the user object
-import { IUser } from '../models/user.model'; 
+import { IUser } from '../../models/user.model'; 
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

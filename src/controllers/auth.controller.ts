@@ -105,20 +105,47 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
  * @route GET /api/v1/auth/me
  * @access Private
  */
-// export const getMe = (req: Request, res: Response): Response => {
-//     // The user object is attached by the 'protect' middleware
-//     // We can now access req.user directly because the Request type is globally augmented.
-//     const user = req.user;
+export const getMe = (req: Request, res: Response): Response => {
+    // The user object is attached by the 'protect' middleware
+    // We can now access req.user directly because the Request type is globally augmented.
+    const user = req.user;
     
-//     if (user) {
-//         return res.status(200).json({
-//             _id: user._id,
-//             fullname: user.fullname,
-//             email: user.email,
-//             phonenumber: user.phonenumber,
-//             createdAt: user.createdAt,
-//         });
-//     } else {
-//         return res.status(404).json({ message: 'User not found in request context.' });
-//     }
-// };
+    if (user) {
+        return res.status(200).json({
+            _id: user._id,
+            fullname: user.fullname,
+            email: user.email,
+            phonenumber: user.phonenumber,
+            createdAt: user.createdAt,
+        });
+    } else {
+        return res.status(404).json({ message: 'User not found in request context.' });
+    }
+};
+
+
+/**
+ * @desc Get all users (Protected route, often restricted to Admins)
+ * @route GET /api/v1/auth/users
+ * @access Private
+ */
+// Using an intersection type (Request & { user: IUser }) inline to define the required shape of the request object.
+export const getAllUsers = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        // Find all users and exclude sensitive fields like password and internal Mongoose fields
+        const users = await User.find().select('-password -__v');
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'No users found.' });
+        }
+
+        return res.status(200).json({
+            count: users.length,
+            users,
+        });
+
+    } catch (error: any) {
+        console.error('Get All Users Error:', error);
+        return res.status(500).json({ message: error.message || 'Server error while fetching users.' });
+    }
+};
