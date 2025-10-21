@@ -26,7 +26,7 @@ app.use(bodyparser.json());
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
     message: "Hey there! from the sever side",
-    app: "IntelliTest API",
+    app: "Safe Journey API",
   });
 });
 
