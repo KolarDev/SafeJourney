@@ -5,16 +5,9 @@
 import { IUser } from '../../models/user.model'; 
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace Express {
-    /**
-     * Augment the Express Request interface to include the authenticated user object.
-     * This allows us to access 'req.user' in any protected route handler without 
-     * explicit casting or custom type imports.
-     */
-    export interface Request {
-      // The user object added by the 'protect' authentication middleware
-      user?: IUser;
-    }
-  }
+  namespace Express {
+    export interface Request {
+      user?: IUser;
+    }
+  }
 }

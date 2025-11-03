@@ -1,0 +1,61 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        border: 1px solid #e0e0e0;
+      }
+      h1 {
+        color: #333333;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        color: #555555;
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .otp-code {
+        background-color: #f1f1f1;
+        color: #007bff;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 15px;
+        text-align: center;
+        border-radius: 6px;
+        margin: 30px 0;
+      }
+      .warning-text {
+        color: #999999;
+        font-size: 14px;
+      }
+
+  body
+    .email-container
+      h1 #{subject}
+      p Hello #{userName},
+      p Please use the following One-Time Password (OTP) to verify your account. This code is valid for 5 minutes.
+      .otp-code #{otp}
+      p If you did not request this code, you can safely ignore this email.
+      p.warning-text This code should not be shared with anyone.
+      p
+        | Best regards,
+        br
+        | The IntelliTest Team

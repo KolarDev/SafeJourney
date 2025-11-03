@@ -30,7 +30,7 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auths', authRoutes);
 
 // Core Application Routes (Protected routes go here)
 // app.use('/api/v1/alerts', alertRoutes);
