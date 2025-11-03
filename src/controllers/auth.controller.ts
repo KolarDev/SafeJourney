@@ -145,8 +145,11 @@ export const refreshTokenRegenerate = catchAsync(async (req: Request, res: Respo
     }
     
     const secret = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+    if (!secret) {
+        throw new Error('JWT secret is not defined');
+    }
     // jwt.verify throws an exception on failure, which catchAsync handles
-    const decoded = jwt.verify(refreshToken, secret) as IUser;
+    const decoded = jwt.verify(refreshToken, secret) as unknown as { id: string };
 
     const user = await User.findById(decoded.id);
 
@@ -210,7 +213,7 @@ export const verifyOTP = catchAsync(async (req: Request, res: Response): Promise
 
     const user = await User.findOne({ email });
 
-    if (!user || user.resetPasswordToken !== hashedOTP || user.resetPasswordExpire < new Date(Date.now())) {
+    if (!user || user.resetPasswordToken !== hashedOTP || !user.resetPasswordExpire || user.resetPasswordExpire < new Date(Date.now())) {
         res.status(400).json({ message: 'Invalid or expired OTP/Code.' });
         return;
     }
