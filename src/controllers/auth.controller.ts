@@ -3,7 +3,7 @@ import { User, IUser } from '../models/user.model';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
 import { catchAsync } from '../utils/catchAsync';
-import { Email } from 'services/email.service';
+import { Email } from '../services/email.service';
 
 // Helper function to generate Access Token (short lived)
 const generateAccessToken = (id: string): string => {
