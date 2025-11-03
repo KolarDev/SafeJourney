@@ -3,6 +3,7 @@ import { User, IUser } from '../models/user.model';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
 import { catchAsync } from '../utils/catchAsync';
+import { Email } from 'services/email.service';
 
 // Helper function to generate Access Token (short lived)
 const generateAccessToken = (id: string): string => {
@@ -193,6 +194,12 @@ export const sendOTP = catchAsync(async (req: Request, res: Response): Promise<v
     user.resetPasswordToken = crypto.createHash('sha256').update(otp).digest('hex');
     user.resetPasswordExpire = new Date(Date.now() + 10 * 60 * 1000); // Expires in 10 minutes
     await user.save({ validateBeforeSave: false });
+
+    
+    await new Email(user.email, {
+      user,
+      extraData: { otp, userName: user.fullname }
+    }).send('sendOTP', 'Your OTP Code');
 
     // WARNING: test_otp only for dev, remove in production!
     res.status(200).json({ success: true, message: 'OTP token sent to email.', test_otp: otp }); 
