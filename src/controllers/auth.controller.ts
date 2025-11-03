@@ -137,7 +137,7 @@ export const logout = (req: Request, res: Response): Response => {
  * @access Public (Requires valid refresh token)
  */
 // Wrapped with catchAsync
-export const refreshTokenRegenerate = catchAsync(async (req: Request, res: Response): Promise<void> => {
+export const refreshToken = catchAsync(async (req: Request, res: Response): Promise<void> => {
     const { refreshToken } = req.body;
 
     if (!refreshToken) {
@@ -176,7 +176,7 @@ export const refreshTokenRegenerate = catchAsync(async (req: Request, res: Respo
  * @access Public
  */
 // Wrapped with catchAsync
-export const sendOTP = catchAsync(async (req: Request, res: Response): Promise<void> => {
+export const sendOtp = catchAsync(async (req: Request, res: Response): Promise<void> => {
     const { email } = req.body;
 
     const user = await User.findOne({ email });
@@ -212,7 +212,7 @@ export const sendOTP = catchAsync(async (req: Request, res: Response): Promise<v
  * @access Public
  */
 // Wrapped with catchAsync
-export const verifyOTP = catchAsync(async (req: Request, res: Response): Promise<void> => {
+export const verifyOtp = catchAsync(async (req: Request, res: Response): Promise<void> => {
     const { email, otp } = req.body;
 
     // Hash the incoming OTP to compare with the hash stored in the database
@@ -239,7 +239,7 @@ export const verifyOTP = catchAsync(async (req: Request, res: Response): Promise
  * @route POST /api/v1/auth/forgotpassword
  * @access Public
  */
-export const forgotPassword = sendOTP; 
+export const forgotPassword = sendOtp; 
 
 
 /**
