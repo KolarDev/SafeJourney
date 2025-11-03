@@ -10,6 +10,8 @@ export interface IUser extends Document {
     password: string;
     comparePassword(candidatePassword: string): Promise<boolean>;
     role: 'user' | 'admin';
+    resetPasswordToken?: string; 
+    resetPasswordExpire?: Date;
 }
 
 const UserSchema: Schema = new Schema(
@@ -41,17 +43,23 @@ const UserSchema: Schema = new Schema(
             type: String,
             enum: ['user', 'admin'],
             default: 'user',
-        }
+        },
+        resetPasswordToken: String,
+        resetPasswordExpire: Date,
     },
     {
         timestamps: true, // Adds createdAt and updatedAt timestamps
     }
 );
-
-// Mongoose pre-save hook to hash the password before saving
 UserSchema.pre<IUser>('save', async function (next) {
-    // Only run this function if password was actually modified
+    // Only run this function if password was actually modified AND it's not the reset token
+    // The reset flow updates the password field, so we only need to check if password was modified.
     if (!this.isModified('password')) {
+        // Clear reset tokens if other fields are modified (optional, but safer)
+        if (!this.isModified('resetPasswordToken')) {
+             this.resetPasswordToken = undefined;
+             this.resetPasswordExpire = undefined;
+        }
         return next();
     }
 
